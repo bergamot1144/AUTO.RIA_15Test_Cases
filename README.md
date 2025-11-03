@@ -2,7 +2,9 @@
 
 ## 1. Назначение проекта
 
-Набор BDD‑сценариев и UI‑тестов для проверки ключевых пользовательских фич сайта `auto.ria.com`: подбор транспорта, фильтры, просмотр карточек, добавление в избранное. Проект ориентирован на стабильный запуск из Maven, генерацию Allure‑отчетов и понятную структуру Page Object.
+Набор BDD‑сценариев и UI‑тестов для проверки ключевых пользовательских фич сайта `auto.ria.com`: подбор транспорта,
+фильтры, просмотр карточек, добавление в избранное. Проект ориентирован на стабильный запуск из Maven, генерацию
+Allure‑отчетов и понятную структуру Page Object.
 
 ## 2. Технологический стек
 
@@ -17,10 +19,10 @@
 ## 3. Структура проекта
 
 - `src/main/java/pages` — Page Object классы
-  - `HomePage` — главная страница, фильтры, добавление в избранное, навигация
-  - `FavouritesPage` — страница избранного, валидация присутствия добавленных элементов
-  - `CatalogPage`, `ProductPage`, `NewCarsPage`, `VehicleCheckerPage` — вспомогательные страницы
-  - `TransportData` — модель данных транспорта (title, price, year, location)
+    - `HomePage` — главная страница, фильтры, добавление в избранное, навигация
+    - `FavouritesPage` — страница избранного, валидация присутствия добавленных элементов
+    - `CatalogPage`, `ProductPage`, `NewCarsPage`, `VehicleCheckerPage` — вспомогательные страницы
+    - `TransportData` — модель данных транспорта (title, price, year, location)
 - `src/main/java/support/Config` — единая конфигурация браузера и Allure
 - `src/test/resources/features` — Gherkin‑фичи
 - `src/test/java/steps` — степ‑дефиниции, раннер `CucumberTestNGRunner`, хуки `CucumberHooks`
@@ -50,7 +52,8 @@ mvn allure:serve
 
 - Подключены зависимости `allure-cucumber7-jvm`, `allure-selenide`, `allure-testng` (через TestNG).
 - В `Config` инициализируется `AllureSelenide` (скриншоты и HTML).
-- Плагин `io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm` активирован в `CucumberTestNGRunner` и `pom.xml` (через `configurationParameters`).
+- Плагин `io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm` активирован в `CucumberTestNGRunner` и `pom.xml` (через
+  `configurationParameters`).
 
 Обычный сценарий использования:
 
@@ -59,26 +62,29 @@ mvn allure:serve
 
 ## 6. Жизненный цикл браузера
 
-- Управляется Selenide. Для каждого сценария Cucumber используется изоляция с закрытием браузера в `@After` (см. `CucumberHooks`).
+- Управляется Selenide. Для каждого сценария Cucumber используется изоляция с закрытием браузера в `@After` (см.
+  `CucumberHooks`).
 - Это предотвращает утечку состояния между тестами (например, избранное не «мигрирует» между сценариями).
 
 ## 7. Антидетект и стабильность кликов
 
-- В `Config` настраивается `FirefoxProfile`: отключение `dom.webdriver.enabled`, `useAutomationExtension`, уведомлений и push.
+- В `Config` настраивается `FirefoxProfile`: отключение `dom.webdriver.enabled`, `useAutomationExtension`, уведомлений и
+  push.
 - Переопределяется `userAgent`, добавляются аргументы `--disable-blink-features=AutomationControlled` и др.
 - Для надежности взаимодействий используется:
-  - масштаб страницы (`document.body.style.zoom`),
-  - наведение `hover()` перед кликом,
-  - запасной JavaScript‑клик на критичных элементах (сердце избранного).
+    - масштаб страницы (`document.body.style.zoom`),
+    - наведение `hover()` перед кликом,
+    - запасной JavaScript‑клик на критичных элементах (сердце избранного).
 
 ## 8. Ключевой тест: «Добавление в избранное»
 
 - `HomePage.clickHeartButtons(int count)` добавляет N карточек в избранное:
-  - сбор данных карточки (`title`, `price`, `year`, `location`)
-  - масштаб страницы и наведение на кнопку
-  - клик (JS → fallback на обычный)
-  - верификация изменения и фиксация данных в локальном списке
-- На странице `FavouritesPage` метод `containsTransport(...)` гибко сравнивает значения, учитывая различия форматирования.
+    - сбор данных карточки (`title`, `price`, `year`, `location`)
+    - масштаб страницы и наведение на кнопку
+    - клик (JS → fallback на обычный)
+    - верификация изменения и фиксация данных в локальном списке
+- На странице `FavouritesPage` метод `containsTransport(...)` гибко сравнивает значения, учитывая различия
+  форматирования.
 
 ## 9. Page Object подход
 
@@ -131,4 +137,5 @@ mvn allure:report
 
 - Добавить параметризацию окружений (dev/stage/prod) через Maven профили.
 - Интегрировать в CI (GitHub Actions / Jenkins) с публикацией Allure‑отчётов.
+
 # AUTO.RIA_15Test_Cases
