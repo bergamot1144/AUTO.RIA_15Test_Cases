@@ -124,6 +124,7 @@ mvn allure:serve
 # Генерация статического отчёта (если нужно)
 mvn allure:report
 ```
+<<<<<<< HEAD
 
 ## 14. Что проверять на защите
 
@@ -139,3 +140,5 @@ mvn allure:report
 - Интегрировать в CI (GitHub Actions / Jenkins) с публикацией Allure‑отчётов.
 
 # AUTO.RIA_15Test_Cases
+=======
+>>>>>>> 3521bba5df85a2ceaf1c9009d5307e4c51fca7da
